@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-
+import SeasonDisplay from './SeasonDisplay'
+import Spinner from './Spinner'
 class App extends React.Component{
     constructor(props){
         super(props);
@@ -20,15 +20,18 @@ class App extends React.Component{
     componentDidUpdate(){
         console.log('Update Mount: When');
     }
-    render(){
+
+    renderContent(){
         console.log('Render: When');
        if(this.state.errorMessage && !this.state.lat){
            return <div>Error: {this.state.errorMessage}</div>
        }else if(!this.state.errorMessage && this.state.lat){
-           return <div>Latitude: {this.state.lat}</div>
+           return <SeasonDisplay lat={this.state.lat}/>
        }
-        return <div>Shits loading</div>
-       
+        return <Spinner message="Accept location request"/>
+    }
+    render(){
+        return this.renderContent();
     }
 }
 
